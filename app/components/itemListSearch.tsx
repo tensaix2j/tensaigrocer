@@ -1,16 +1,19 @@
 
 'use client'
 import React from 'react'
-import { decode } from "html-entities";
 import { useEffect, useState, useRef } from "react";
 import  ItemCard from "./itemCard"
+import type { GroceryItem } from "../types";
 
+type ItemListSearchProps = {
+  query: string;
+};
 
-const ItemList = ({ query }) => {
+const ItemList = ({ query }: ItemListSearchProps) => {
 
-	const [items, setItems] 	= useState([]);
+	const [items, setItems] 	= useState<GroceryItem[]>([]);
   	const [loading, setLoading] = useState(false);
-	const loaderRef 			= useRef(null);
+	const loaderRef 			= useRef<HTMLDivElement | null>(null);
 	const [hasMore, setHasMore] = useState(true);
     const page 		            = useRef(1);
 	
@@ -27,7 +30,7 @@ const ItemList = ({ query }) => {
 			`/api/search?q=${ query }&skip=${skip}`
 		);
 
-		const data = await res.json();
+		const data = (await res.json()) as GroceryItem[];
         
         if ( data.length === 0) {
             setHasMore(false); // 
@@ -84,7 +87,7 @@ const ItemList = ({ query }) => {
 
 	return (
 		<>
-		{ items.map( ( item,i )=> (
+		{ items.map( ( item )=> (
 			<ItemCard item={item} key={ item._id } />
 		))}
         { hasMore && (

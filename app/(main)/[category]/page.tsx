@@ -3,8 +3,15 @@ import React from 'react'
 import clientPromise from "../../lib/mongodb";
 import { decode } from "html-entities";
 import ItemList from "../../components/itemList";
+import type { GroceryDocument, GroceryItem } from "../../types";
 
-const Category = async ({ params }) => {
+type Props = {
+  params: Promise<{
+    category: string;
+  }>;
+};
+
+const Category = async ({ params } : Props ) => {
     
     const category = ( await params ).category;
     const page = 1;
@@ -13,13 +20,13 @@ const Category = async ({ params }) => {
     const client = await clientPromise;
     const db = client.db("groceries_db");
     const items = await db
-                    .collection("Groceries")
+                    .collection<GroceryDocument>("Groceries")
                     .find({ category: decodeURIComponent( category ) })
                     .skip((page - 1) * limit)
                     .limit(limit)
                     .toArray();
 
-    const safeItems = items.map((item) => ({
+    const safeItems: GroceryItem[] = items.map((item) => ({
         ...item,
         _id: item._id.toString(), // convert ObjectId → string
     }));                

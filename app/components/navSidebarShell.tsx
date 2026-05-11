@@ -9,20 +9,25 @@ import { useState, useEffect } from 'react';
 import Signup from './signup'
 import Login from './login'
 import { toast } from "react-toastify";
+import type { AppUser, ModalAction } from "../types";
 
+type NavSidebarShellProps = {
+    children: React.ReactNode;
+    categories: string[];
+};
 
-const NavSidebarShell = ({children, categories, modal}) => {
+const NavSidebarShell = ({ children, categories }: NavSidebarShellProps) => {
 
 	const [sidebarOpen, setSidebarOpen] = useState(true)
     const [isBigScreen, setIsBigScreen ] = useState(false);
     const [modalOpen, setModalOpen ] = useState( false );
-    const [modalAction, setModalAction ] = useState("");
+    const [modalAction, setModalAction ] = useState<ModalAction | "">("");
     
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState<AppUser | null>(null)
     const [loadingUser, setLoadingUser] = useState(true)
 
 
-    const onModalChanged = ( action ) => {
+    const onModalChanged = ( action: ModalAction ) => {
         console.log( "onModalChanged", action )
         setModalAction(action);
         setModalOpen(true);

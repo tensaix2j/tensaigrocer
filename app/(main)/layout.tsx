@@ -11,6 +11,9 @@ import "react-toastify/dist/ReactToastify.css";
 export const metadata: Metadata = {
 	title: "Tensai Grocer",
 	description: "Find your local groceries",
+	icons: {
+		icon: "/favicon.png",
+	},
 };
 
 export default async function RootLayout({
@@ -27,7 +30,7 @@ export default async function RootLayout({
 			data-theme="light"
 		>
 			<body>
-                <NavSidebarShell categories={categories} >
+                <NavSidebarShell categories={categories}   >
                     {children}
                     <ToastContainer />
                 </NavSidebarShell>

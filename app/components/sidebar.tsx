@@ -8,8 +8,17 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 
 import Link  from "next/link"
 import { decode } from "html-entities";
+import type { AppUser, ToggleModal } from "../types";
 
-const SideBar = ( { categories , showUserMenu , onToggleModal , user , onLogout } ) => {
+type SideBarProps = {
+    categories: string[];
+    showUserMenu: boolean;
+    onToggleModal: ToggleModal;
+    user: AppUser | null;
+    onLogout: () => void;
+};
+
+const SideBar = ( { categories , showUserMenu , onToggleModal , user , onLogout }: SideBarProps ) => {
     
     return (
 		<div className="p-2">
@@ -37,7 +46,7 @@ const SideBar = ( { categories , showUserMenu , onToggleModal , user , onLogout 
                 </div>
             }
 
-            { categories.map( (category,i)=> (
+            { categories.map( (category,i: number)=> (
 
 				<Link href={ "/" + category } key={i} className="flex flex-row p-1 cursor-pointer hover:text-green-700 items-center">
                     <div className="flex-1">

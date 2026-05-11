@@ -5,8 +5,12 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
+type ModalProps = {
+    children: React.ReactNode;
+    onClosed: () => void;
+};
 
-const Modal = ( {children, onClosed } ) => {
+const Modal = ( {children, onClosed }: ModalProps ) => {
     return (
         <>
             <div className="fixed top-0 left-0 bg-[rgba(0,0,0,0.7)] w-full h-full"></div>
@@ -36,4 +40,3 @@ const Modal = ( {children, onClosed } ) => {
 }
 
 export default Modal
-

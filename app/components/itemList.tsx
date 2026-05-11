@@ -1,16 +1,20 @@
 
 'use client'
 import React from 'react'
-import { decode } from "html-entities";
 import { useEffect, useState, useRef } from "react";
 import  ItemCard from "./itemCard"
+import type { GroceryItem } from "../types";
 
+type ItemListProps = {
+  initialItems: GroceryItem[];
+  category: string;
+};
 
-const ItemList = ({initialItems, category}) => {
+const ItemList = ({ initialItems, category }: ItemListProps) => {
 
-	const [items, setItems] 	= useState(initialItems);
+	const [items, setItems] 	= useState<GroceryItem[]>(initialItems);
   	const [loading, setLoading] = useState(false);
-	const loaderRef 			= useRef(null);
+	const loaderRef 			= useRef<HTMLDivElement | null>(null);
 	const page 		            = useRef(1);
 	
     const [hasMore, setHasMore] = useState(true);
@@ -31,7 +35,7 @@ const ItemList = ({initialItems, category}) => {
 			`/api/groceries?category=${encodeURIComponent(category)}&skip=${skip}`
 		);
 
-		const data = await res.json();
+		const data = (await res.json()) as GroceryItem[];
 
         if ( data.length === 0) {
             setHasMore(false); // 🚨 stop future requests
@@ -78,7 +82,7 @@ const ItemList = ({initialItems, category}) => {
 	
 	return (
 		<>
-		{ items.map( ( item,i )=> (
+		{ items.map( ( item )=> (
             <ItemCard item={item} key={ item._id } />
 		))}
         { hasMore && (

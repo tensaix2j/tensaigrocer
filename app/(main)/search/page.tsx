@@ -1,15 +1,16 @@
-'use client'
-
 import React from 'react'
-import clientPromise from "../../lib/mongodb";
-import { decode } from "html-entities";
 import ItemListSearch from "../../components/itemListSearch";
-import { useSearchParams } from "next/navigation";
 
-const Search = () => {
-    
-    const searchParams = useSearchParams();
-    const query = searchParams.get("q") || "";
+type SearchProps = {
+    searchParams: Promise<{
+        q?: string | string[];
+    }>;
+};
+
+const Search = async ({ searchParams }: SearchProps) => {
+    const params = await searchParams;
+    const rawQuery = params.q;
+    const query = Array.isArray(rawQuery) ? rawQuery[0] ?? "" : rawQuery ?? "";
 
     console.log("/search/page.tsx");
 

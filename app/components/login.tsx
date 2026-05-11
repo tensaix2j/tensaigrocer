@@ -1,18 +1,27 @@
 'use client'
 import React, { useState } from 'react'
 import { toast } from "react-toastify";
+import type { ToggleModal } from "../types";
 
-const Login = ({ onClosed, onToggleModal, onLogin }) => {
+type LoginErrors = Partial<Record<"email" | "password" | "api", string>>;
+
+type LoginProps = {
+    onClosed?: () => void;
+    onToggleModal: ToggleModal;
+    onLogin?: () => void;
+};
+
+const Login = ({ onClosed, onToggleModal, onLogin }: LoginProps) => {
 
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     })
 
-    const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState<LoginErrors>({})
     const [loading, setLoading] = useState(false)
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
 
         setFormData(prev => ({
@@ -27,7 +36,7 @@ const Login = ({ onClosed, onToggleModal, onLogin }) => {
     }
 
     const validateForm = () => {
-        let newErrors = {}
+        const newErrors: LoginErrors = {}
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 

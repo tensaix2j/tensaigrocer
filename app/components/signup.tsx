@@ -2,8 +2,16 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { toast } from "react-toastify";
+import type { ToggleModal } from "../types";
 
-const SignUp = ({ onClosed , onToggleModal }) => {
+type SignUpErrors = Partial<Record<"firstName" | "lastName" | "email" | "mobile" | "password", string>>;
+
+type SignUpProps = {
+    onClosed?: () => void;
+    onToggleModal: ToggleModal;
+};
+
+const SignUp = ({ onClosed , onToggleModal }: SignUpProps) => {
 
     const [formData, setFormData] = useState({
         firstName: '',
@@ -13,10 +21,10 @@ const SignUp = ({ onClosed , onToggleModal }) => {
         password: '',
     })
 
-    const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState<SignUpErrors>({})
     const [loading, setLoading] = useState(false)
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
 
         setFormData(prev => ({
@@ -31,7 +39,7 @@ const SignUp = ({ onClosed , onToggleModal }) => {
     }
 
     const validateForm = () => {
-        let newErrors = {}
+        const newErrors: SignUpErrors = {}
 
         if (!formData.firstName.trim()) {
             newErrors.firstName = 'First name is required'

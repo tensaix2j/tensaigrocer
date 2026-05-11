@@ -1,8 +1,13 @@
 
 import React from 'react'
 import { decode } from "html-entities";
+import type { GroceryItem } from "../types";
 
-const ItemCard = ( {item} ) => {
+type ItemCardProps = {
+  item: GroceryItem;
+};
+
+const ItemCard = ({ item }: ItemCardProps) => {
   return (
     <>
         <div className="card min-w-[200px] w-48/100 md:w-40 bg-base-100 shadow-xl" key={item._id}>

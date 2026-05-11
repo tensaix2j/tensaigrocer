@@ -14,9 +14,17 @@ import { decode } from "html-entities";
 
 import Logo from "./logo"
 import SearchBar from "./searchbar"
+import type { AppUser, ToggleModal } from "../types";
 
+type NavBarProps = {
+    categories: string[];
+    onToggleSidebar: () => void;
+    onToggleModal: ToggleModal;
+    user: AppUser | null;
+    onLogout: () => void;
+};
 
-const NavBar = ( {categories, onToggleSidebar, onToggleModal , user , onLogout } ) => {
+const NavBar = ( {categories, onToggleSidebar, onToggleModal , user , onLogout }: NavBarProps ) => {
 
 	return (
 			
