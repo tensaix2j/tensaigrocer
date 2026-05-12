@@ -9,6 +9,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 import Link  from "next/link"
 import { decode } from "html-entities";
 import type { AppUser, ToggleModal } from "../types";
+import ThemeToggle from './themeToggle'
 
 type SideBarProps = {
     categories: string[];
@@ -25,6 +26,7 @@ const SideBar = ( { categories , showUserMenu , onToggleModal , user , onLogout 
             
             { showUserMenu &&  
                 <div className="flex flex-col gap-1 ml-1">
+                    <div><ThemeToggle /></div>
                     <div><button className="hover:text-green-900 dark:hover:text-amber-200 cursor-pointer"><FontAwesomeIcon icon={faBasketShopping} /> Cart</button></div>
 
 
