@@ -10,7 +10,7 @@ type ItemCardProps = {
 const ItemCard = ({ item }: ItemCardProps) => {
   return (
     <>
-        <div className="card min-w-[200px] w-48/100 md:w-40 bg-base-100 shadow-xl" key={item._id}>
+        <div className="card min-w-[40vw] md:min-w-[200px] w-48/100 md:w-40 bg-base-100 shadow-xl" key={item._id}>
             <div className="card-body p-2 flex flex-col">
                 <div className="min-h-[40px]"><h3 className="card-title text-sm">{ decode( item.name ) }</h3></div>
                 <div className="flex-1"><img className="dark:rounded-xl" src={ item.image_url } /></div>

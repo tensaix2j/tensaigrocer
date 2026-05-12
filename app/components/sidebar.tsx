@@ -21,6 +21,8 @@ type SideBarProps = {
 
 const SideBar = ( { categories , showUserMenu , onToggleModal , user , onLogout }: SideBarProps ) => {
     
+    const buttonClassName = "hover:text-green-900 dark:hover:text-amber-200 cursor-pointer";
+
     return (
 		<div className="p-2 text-black dark:text-white">
             
@@ -32,7 +34,12 @@ const SideBar = ( { categories , showUserMenu , onToggleModal , user , onLogout 
 
                     { user ? ( 
                         <>
-                            <div><button className="hover:text-green-900 dark:hover:text-amber-200 cursor-pointer">Hi, { user.firstName }</button></div>
+                            <div>
+                                <Link href="/account" className={buttonClassName}>
+                                    Hi, { user.firstName }
+                                </Link>
+                            </div>
+
                             <div><button className="hover:text-green-900 dark:hover:text-amber-200 cursor-pointer" onClick={ onLogout } >Logout</button></div>				
                         </>
                     ) : (

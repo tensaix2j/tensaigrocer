@@ -36,7 +36,6 @@ const Category = async ({ params } : Props ) => {
             <div className="p-2 font-bold">{ decode( decodeURIComponent( category )) }</div>
             <hr className="mb-2 -ml-2 w-full text-gray-400" />
             <div className="flex flex-wrap gap-2">
-                
                 <ItemList initialItems={safeItems} category={category} />
             </div>
 

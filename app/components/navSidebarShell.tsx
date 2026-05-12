@@ -10,6 +10,8 @@ import Signup from './signup'
 import Login from './login'
 import { toast } from "react-toastify";
 import type { AppUser, ModalAction } from "../types";
+import { useAuth } from "../context/authContext";
+import { useRouter } from "next/navigation";
 
 type NavSidebarShellProps = {
     children: React.ReactNode;
@@ -22,10 +24,17 @@ const NavSidebarShell = ({ children, categories }: NavSidebarShellProps) => {
     const [isBigScreen, setIsBigScreen ] = useState(false);
     const [modalOpen, setModalOpen ] = useState( false );
     const [modalAction, setModalAction ] = useState<ModalAction | "">("");
-    
-    const [user, setUser] = useState<AppUser | null>(null)
     const [loadingUser, setLoadingUser] = useState(true)
 
+    const { user, setUser, onLogin, onLogout } = useAuth();
+    const router = useRouter();
+    
+    const signOut = async () => {
+        await onLogout();
+        toast.success("Logged out successfully");
+        router.push("/");
+        router.refresh();
+    };
 
     const onModalChanged = ( action: ModalAction ) => {
         console.log( "onModalChanged", action )
@@ -37,40 +46,9 @@ const NavSidebarShell = ({ children, categories }: NavSidebarShellProps) => {
         setModalOpen(false);
     }
 
-    const onLogin = async () => {
-        await fetchUser()
-    }
+    
 
-    const onLogout = async () => {
-        await fetch('/api/logout', { method: 'POST' })
-        setUser(null)
-        toast.success("Logged out successfully");
-    }
-
-    const fetchUser = async () => {
-        try {
-            const res = await fetch('/api/me')
-            const data = await res.json()
-
-            if (res.ok) {
-                console.log( "User", data.user );
-                setUser(data.user)
-            } else {
-                setUser(null)
-            }
-
-        } catch (err) {
-            console.error(err)
-            setUser(null)
-        } finally {
-            setLoadingUser(false)
-        }
-    }
-
-    useEffect(()=>{
-        fetchUser()
-    },[])
-
+    
 
 
     useEffect(() => {
@@ -100,7 +78,7 @@ const NavSidebarShell = ({ children, categories }: NavSidebarShellProps) => {
                 onToggleSidebar={ () => setSidebarOpen(!sidebarOpen) } 
                 onToggleModal={onModalChanged} 
                 user={user}   
-                onLogout={onLogout}
+                onLogout={signOut}
             />
             <div className="p-0 flex-1 flex flex-row w-screen bg-amber-50 text-black dark:bg-zinc-950 dark:text-white">
                             
@@ -110,7 +88,7 @@ const NavSidebarShell = ({ children, categories }: NavSidebarShellProps) => {
                             showUserMenu={!isBigScreen} 
                             onToggleModal={onModalChanged} 
                             user={user}
-                            onLogout={onLogout}
+                            onLogout={signOut}
                     />
                 </div>
             

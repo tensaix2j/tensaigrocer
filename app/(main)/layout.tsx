@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Varela_Round } from 'next/font/google'
 
 import { ThemeProvider } from 'next-themes'
+import { AuthProvider } from "../context/authContext";
 
 export const metadata: Metadata = {
 	title: "Tensai Grocer",
@@ -49,11 +50,13 @@ export default async function RootLayout({
                     enableSystem={false}
                     themes={["light", "dark"]}
                 >
-                    
-                    <NavSidebarShell categories={categories}   >
-                        {children}
-                        <ToastContainer />
-                    </NavSidebarShell>
+                    <AuthProvider>
+                        <NavSidebarShell categories={categories}   >
+                            {children}
+                            <ToastContainer />
+                        </NavSidebarShell>
+                    </AuthProvider>
+
                 </ThemeProvider>
             </body>
 		</html>

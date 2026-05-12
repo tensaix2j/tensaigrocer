@@ -49,7 +49,11 @@ const NavBar = ( {categories, onToggleSidebar, onToggleModal , user , onLogout }
 
                     { user ? ( 
                         <>
-                            <div><button className={buttonClassName}>Hi, { user.firstName }</button></div>
+                            <div>
+                                <Link href="/account" className={buttonClassName}>
+                                    Hi, { user.firstName }
+                                </Link>
+                            </div>
                             <div><button className={buttonClassName} onClick={ onLogout } >Logout</button></div>				
                         </>
                     ) : (

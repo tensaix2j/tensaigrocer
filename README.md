@@ -15,7 +15,7 @@ Features :
 - Incremental loading of Search results.
 - Users signup, login modal form with validations.
 - Users login using JWT verification.
-
+- UseAuth Context
 
 ## Credits
 Groceries Data scraped from shengsiong.com.sg
