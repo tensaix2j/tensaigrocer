@@ -21,22 +21,22 @@ type SideBarProps = {
 const SideBar = ( { categories , showUserMenu , onToggleModal , user , onLogout }: SideBarProps ) => {
     
     return (
-		<div className="p-2">
+		<div className="p-2 text-black dark:text-white">
             
             { showUserMenu &&  
                 <div className="flex flex-col gap-1 ml-1">
-                    <div><button className="hover:text-green-900 cursor-pointer"><FontAwesomeIcon icon={faBasketShopping} /> Cart</button></div>
+                    <div><button className="hover:text-green-900 dark:hover:text-amber-200 cursor-pointer"><FontAwesomeIcon icon={faBasketShopping} /> Cart</button></div>
 
 
                     { user ? ( 
                         <>
-                            <div><button className="hover:text-green-900 cursor-pointer">Hi, { user.firstName }</button></div>
-                            <div><button className="hover:text-green-900 cursor-pointer" onClick={ onLogout } >Logout</button></div>				
+                            <div><button className="hover:text-green-900 dark:hover:text-amber-200 cursor-pointer">Hi, { user.firstName }</button></div>
+                            <div><button className="hover:text-green-900 dark:hover:text-amber-200 cursor-pointer" onClick={ onLogout } >Logout</button></div>				
                         </>
                     ) : (
                         <>
-                            <div><button className="hover:text-green-900 cursor-pointer" onClick={ ()=>{ onToggleModal('signup')} } >Signup</button></div>
-                            <div><button className="hover:text-green-900 cursor-pointer" onClick={ ()=>{ onToggleModal('login') } } >Login</button></div>				                
+                            <div><button className="hover:text-green-900 dark:hover:text-amber-200 cursor-pointer" onClick={ ()=>{ onToggleModal('signup')} } >Signup</button></div>
+                            <div><button className="hover:text-green-900 dark:hover:text-amber-200 cursor-pointer" onClick={ ()=>{ onToggleModal('login') } } >Login</button></div>				                
 
                         </>
                     )}
@@ -48,11 +48,11 @@ const SideBar = ( { categories , showUserMenu , onToggleModal , user , onLogout 
 
             { categories.map( (category,i: number)=> (
 
-				<Link href={ "/" + category } key={i} className="flex flex-row p-1 cursor-pointer hover:text-green-700 items-center">
+				<Link href={ "/" + category } key={i} className="flex flex-row p-1 cursor-pointer hover:text-orange-700 dark:hover:text-amber-200 text-sm items-center">
                     <div className="flex-1">
                         { decode( category ) }
                     </div>
-                    <div className="text-gray-400">
+                    <div className="text-gray-500 dark:text-gray-300">
                             <FontAwesomeIcon icon={faChevronRight} />
                     </div>
                     

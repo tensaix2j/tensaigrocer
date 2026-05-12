@@ -102,10 +102,10 @@ const NavSidebarShell = ({ children, categories }: NavSidebarShellProps) => {
                 user={user}   
                 onLogout={onLogout}
             />
-            <div className="p-0 flex-1 bg-gray-200 flex flex-row w-screen">
+            <div className="p-0 flex-1 flex flex-row w-screen bg-amber-50 text-black dark:bg-zinc-950 dark:text-white">
                             
                 
-                <div className={`bg-gray-300 ${ sidebarOpen ? "block" : "hidden" } `}>
+                <div className={`bg-amber-100 text-black dark:bg-zinc-900 dark:text-white ${ sidebarOpen ? "block" : "hidden" } `}>
                     <SideBar categories={categories} 
                             showUserMenu={!isBigScreen} 
                             onToggleModal={onModalChanged} 
@@ -114,7 +114,7 @@ const NavSidebarShell = ({ children, categories }: NavSidebarShellProps) => {
                     />
                 </div>
             
-                <div className="p-2 flex-1">
+                <div className="p-2 flex-1 bg-amber-50 text-black dark:bg-zinc-950 dark:text-white">
                         {children}
                         { modalOpen && 
                             <Modal onClosed={ onModalClosed } >

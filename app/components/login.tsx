@@ -93,7 +93,7 @@ const Login = ({ onClosed, onToggleModal, onLogin }: LoginProps) => {
     }
 
     return (
-        <div className="flex flex-col gap-2 m-2">
+        <div className="flex flex-col gap-2 m-2 text-black dark:text-white">
 
             <h2 className="text-xl font-bold m-2">Log In</h2>
 
@@ -110,7 +110,7 @@ const Login = ({ onClosed, onToggleModal, onLogin }: LoginProps) => {
                     placeholder="Email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="input input-bordered w-full"
+                    className="input input-bordered w-full bg-white text-black border border-gray-300 placeholder:text-gray-500 dark:bg-zinc-800 dark:text-white dark:placeholder:text-gray-400 dark:border-zinc-700"
                 />
                 {errors.email && (
                     <p className="text-red-500 text-sm">{errors.email}</p>
@@ -125,7 +125,7 @@ const Login = ({ onClosed, onToggleModal, onLogin }: LoginProps) => {
                     placeholder="Password"
                     value={formData.password}
                     onChange={handleChange}
-                    className="input input-bordered w-full"
+                    className="input input-bordered w-full bg-white text-black border border-gray-300 placeholder:text-gray-500 dark:bg-zinc-800 dark:text-white dark:placeholder:text-gray-400 dark:border-zinc-700"
                 />
                 {errors.password && (
                     <p className="text-red-500 text-sm">{errors.password}</p>
@@ -143,7 +143,7 @@ const Login = ({ onClosed, onToggleModal, onLogin }: LoginProps) => {
             <div className="text-sm mt-10">
                 Don't have an account?
                 <button
-                    className="cursor-pointer text-blue-400 ml-1"
+                    className="cursor-pointer text-blue-600 dark:text-amber-200 ml-1"
                     onClick={() => onToggleModal("signup")}
                 >
                     Sign Up

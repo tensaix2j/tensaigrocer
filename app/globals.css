@@ -1,5 +1,26 @@
 @import "tailwindcss";
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 @plugin "daisyui" {
    themes: light --default, dark --prefersdark;
 }
 
+:root {
+  --background: 255 255 255;
+  --foreground: 10 10 10;
+  --card: 255 255 255;
+  --card-foreground: 10 10 10;
+  --border: 229 231 235;
+}
+
+[data-theme="dark"] {
+  --background: 10 10 10;
+  --foreground: 250 250 250;
+  --card: 24 24 27;
+  --card-foreground: 250 250 250;
+  --border: 63 63 70;
+}
+
+body {
+  background: rgb(var(--background));
+  color: rgb(var(--foreground));
+}

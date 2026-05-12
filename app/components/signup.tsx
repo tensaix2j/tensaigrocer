@@ -117,7 +117,7 @@ const SignUp = ({ onClosed , onToggleModal }: SignUpProps) => {
     }
 
     return (
-        <div className="flex flex-col gap-2 m-2">
+        <div className="flex flex-col gap-2 m-2 text-black dark:text-white">
 
             <h2 className="text-xl font-bold m-2">Sign Up</h2>
 
@@ -126,7 +126,7 @@ const SignUp = ({ onClosed , onToggleModal }: SignUpProps) => {
                 placeholder="First Name"
                 value={formData.firstName}
                 onChange={handleChange}
-                className="input input-bordered w-full"
+                className="input input-bordered w-full bg-white text-black border border-gray-300 placeholder:text-gray-500 dark:bg-zinc-800 dark:text-white dark:placeholder:text-gray-400 dark:border-zinc-700"
             />
             {errors.firstName && <p className="text-red-500 text-sm">{errors.firstName}</p>}
 
@@ -135,7 +135,7 @@ const SignUp = ({ onClosed , onToggleModal }: SignUpProps) => {
                 placeholder="Last Name"
                 value={formData.lastName}
                 onChange={handleChange}
-                className="input input-bordered w-full"
+                className="input input-bordered w-full bg-white text-black border border-gray-300 placeholder:text-gray-500 dark:bg-zinc-800 dark:text-white dark:placeholder:text-gray-400 dark:border-zinc-700"
             />
             {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName}</p>}
 
@@ -144,7 +144,7 @@ const SignUp = ({ onClosed , onToggleModal }: SignUpProps) => {
                 placeholder="Email"
                 value={formData.email}
                 onChange={handleChange}
-                className="input input-bordered w-full"
+                className="input input-bordered w-full bg-white text-black border border-gray-300 placeholder:text-gray-500 dark:bg-zinc-800 dark:text-white dark:placeholder:text-gray-400 dark:border-zinc-700"
             />
             {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
 
@@ -153,7 +153,7 @@ const SignUp = ({ onClosed , onToggleModal }: SignUpProps) => {
                 placeholder="Mobile Number"
                 value={formData.mobile}
                 onChange={handleChange}
-                className="input input-bordered w-full"
+                className="input input-bordered w-full bg-white text-black border border-gray-300 placeholder:text-gray-500 dark:bg-zinc-800 dark:text-white dark:placeholder:text-gray-400 dark:border-zinc-700"
             />
             {errors.mobile && <p className="text-red-500 text-sm">{errors.mobile}</p>}
 
@@ -163,17 +163,17 @@ const SignUp = ({ onClosed , onToggleModal }: SignUpProps) => {
                 placeholder="Password"
                 value={formData.password}
                 onChange={handleChange}
-                className="input input-bordered w-full"
+                className="input input-bordered w-full bg-white text-black border border-gray-300 placeholder:text-gray-500 dark:bg-zinc-800 dark:text-white dark:placeholder:text-gray-400 dark:border-zinc-700"
             />
             {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
 
             <div className="text-sm mt-6">
                 By submitting, I agree to the
-                <Link href="/terms" className="text-blue-400" onClick={onClosed}>
+                <Link href="/terms" className="text-blue-600 dark:text-amber-200" onClick={onClosed}>
                     {' '}Terms and Conditions
                 </Link>
                 {' '}and
-                <Link href="/policy" className="text-blue-400" onClick={onClosed}>
+                <Link href="/policy" className="text-blue-600 dark:text-amber-200" onClick={onClosed}>
                     {' '}Privacy Policy
                 </Link>.
             </div>
