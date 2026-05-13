@@ -7,25 +7,22 @@ import ItemCard from './itemCard';
 const ItemListRandom = ({}) => {
     
     const [items, setItems] = useState<GroceryItem[]>([]);
-    const loading = useRef(false);
+    const [loading, setLoading] = useState(true);
 
     async function load() {
-        if (loading.current) return;
-
-        loading.current = true;
-
+        
         try {
-        const res = await fetch(
-            `/api/groceries_rnd?limit=20`
-        );
+            const res = await fetch(
+                `/api/groceries_rnd?limit=24`
+            );
 
-        const data = (await res.json()) as GroceryItem[];
+            const data = (await res.json()) as GroceryItem[];
 
-        setItems(data);
+            setItems(data);
         } catch (err) {
-        console.error(err);
+            console.error(err);
         } finally {
-        loading.current = false;
+            setLoading( false );
         }
     }
 
@@ -42,6 +39,9 @@ const ItemListRandom = ({}) => {
                 <ItemCard item={item} key={item._id} />
             ))}
             </div>
+            <div className="w-full flex flex-col items-center">
+			    {loading && <div className="text-gray-900 px-2 py-4 rounded-xl">Loading...</div>}
+		    </div>
         </>
     );
 };

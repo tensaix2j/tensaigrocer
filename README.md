@@ -11,12 +11,15 @@ Features :
 - MongoDB backend for groceries and users data.
 - Responsive design of Navbar and Sidebar.
 - Incremental loading of Categorized items.
-- Indexed data for optimum searching.
+- Indexed data for item searching.
 - Incremental loading of Search results.
 - Users signup, login modal form with validations.
 - Users login using JWT verification.
 - UseAuth Context
+- c,r,u,d operations for Users.
 
 ## Credits
-Groceries Data scraped from shengsiong.com.sg
+Groceries Data scraped from:
+- shengsiong.com.sg
+- fairprice.com.sg
 

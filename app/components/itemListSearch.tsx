@@ -9,7 +9,7 @@ type ItemListSearchProps = {
   query: string;
 };
 
-const ItemList = ({ query }: ItemListSearchProps) => {
+const ItemListSearch = ({ query }: ItemListSearchProps) => {
 
 	const [items, setItems] 	= useState<GroceryItem[]>([]);
   	const [loading, setLoading] = useState(false);
@@ -49,7 +49,7 @@ const ItemList = ({ query }: ItemListSearchProps) => {
     //------------------
     useEffect(() => {
 
-        console.log("itemListSearch.tsx", "query trigger useState" );
+        console.log("itemListSearch.tsx", "query: ", query, "triggers useState" );
         setItems([]);
         page.current = 0;
         setHasMore(true);
@@ -64,7 +64,7 @@ const ItemList = ({ query }: ItemListSearchProps) => {
 
 		const observer = new IntersectionObserver((entries) => {
 			if (entries[0].isIntersecting && !loading && hasMore ) {
-                console.log("itemListSearch.tsx", "IntersectionObserver", "going to loadMore");
+                console.log("itemListSearch.tsx", "IntersectionObserver", "going to loadMore", "current query", query );
 				loadMore();
 			}
 		},
@@ -78,7 +78,7 @@ const ItemList = ({ query }: ItemListSearchProps) => {
 
 		return () => observer.disconnect();
 
-	}, [ loading, hasMore]);
+	}, [ hasMore, query ]);
 
     
 	
@@ -109,4 +109,4 @@ const ItemList = ({ query }: ItemListSearchProps) => {
 	)
 }
 
-export default ItemList
+export default ItemListSearch
