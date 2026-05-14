@@ -12,8 +12,8 @@ type ModalProps = {
 const Modal = ( {children, onClosed }: ModalProps ) => {
     return (
         <>
-            <div className="fixed top-0 left-0 bg-[rgba(0,0,0,0.7)] dark:bg-[rgba(0,0,0,0.82)] w-full h-full"></div>
-            <div className="fixed w-full h-full top-0 left-0 bg-white text-black dark:bg-zinc-900 dark:text-white
+            <div className="fixed top-0  z-100 left-0 bg-[rgba(0,0,0,0.7)] dark:bg-[rgba(0,0,0,0.82)] w-full h-full"></div>
+            <div className="fixed w-full z-101 h-full top-0 left-0 bg-white text-black dark:bg-zinc-900 dark:text-white
                 md:w-1/2 
                 md:h-auto  
                 md:top-1/2 

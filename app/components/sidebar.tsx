@@ -14,29 +14,21 @@ type SideBarProps = {
     showUserMenu: boolean;
     onToggleModal: ToggleModal;
     onToggleCartdrawer: () => void;
+    cartSubtotal: number;
     user: AppUser | null;
     onLogout: () => void;
 };
 
-const SideBar = ( { categories , showUserMenu , onToggleModal, onToggleCartdrawer , user , onLogout }: SideBarProps ) => {
+const SideBar = ( { categories , showUserMenu , onToggleModal, onToggleCartdrawer, cartSubtotal, user , onLogout }: SideBarProps ) => {
     
     const buttonClassName = "hover:text-green-900 dark:hover:text-amber-200 cursor-pointer";
 
     return (
-		<div className="p-2 text-black dark:text-white">
+		<div className="p-4 px-4 md:px-6 flex flex-col gap-1 text-black dark:text-white">
             
             { showUserMenu &&  
                 <div className="flex flex-col gap-1 ml-1">
-                    <div><ThemeToggle /></div>
-                    <div>
-                        <button className="hover:text-green-900 dark:hover:text-amber-200 cursor-pointer"
-                                onClick={ onToggleCartdrawer }
-                            >
-                            <FaShoppingCart size={20} />
-                        </button>
-                    </div>
-
-
+                    
                     { user ? ( 
                         <>
                             <div>
@@ -45,12 +37,12 @@ const SideBar = ( { categories , showUserMenu , onToggleModal, onToggleCartdrawe
                                 </Link>
                             </div>
 
-                            <div><button className="hover:text-green-900 dark:hover:text-amber-200 cursor-pointer" onClick={ onLogout } >Logout</button></div>				
+                            <div><button className="text-sm hover:text-green-900 dark:hover:text-amber-200 cursor-pointer" onClick={ onLogout } >Logout</button></div>				
                         </>
                     ) : (
                         <>
-                            <div><button className="hover:text-green-900 dark:hover:text-amber-200 cursor-pointer" onClick={ ()=>{ onToggleModal('signup')} } >Signup</button></div>
-                            <div><button className="hover:text-green-900 dark:hover:text-amber-200 cursor-pointer" onClick={ ()=>{ onToggleModal('login') } } >Login</button></div>				                
+                            <div><button className="text-sm hover:text-green-900 dark:hover:text-amber-200 cursor-pointer" onClick={ ()=>{ onToggleModal('signup')} } >Signup</button></div>
+                            <div><button className="text-sm hover:text-green-900 dark:hover:text-amber-200 cursor-pointer" onClick={ ()=>{ onToggleModal('login') } } >Login</button></div>				                
 
                         </>
                     )}

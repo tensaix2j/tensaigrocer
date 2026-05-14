@@ -13,6 +13,7 @@ import type { AppUser, ModalAction } from "../types";
 import { useAuth } from "../context/authContext";
 import { useRouter } from "next/navigation";
 import CartDrawer from "./cartDrawer";
+import { useCart } from "../context/cartContext";
 
 type NavSidebarShellProps = {
     children: React.ReactNode;
@@ -30,7 +31,12 @@ const NavSidebarShell = ({ children, categories }: NavSidebarShellProps) => {
     const [loadingUser, setLoadingUser] = useState(true)
 
     const { user, setUser, onLogin, onLogout } = useAuth();
+    const { state: cartState } = useCart();
     const router = useRouter();
+    const cartSubtotal = cartState.items.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+    );
     
     const signOut = async () => {
         await onLogout();
@@ -85,6 +91,7 @@ const NavSidebarShell = ({ children, categories }: NavSidebarShellProps) => {
                     onToggleSidebar={ () => setSidebarOpen(!sidebarOpen) } 
                     onToggleCartdrawer={ () => setCartdrawerOpen(!cartdrawerOpen) }
                     onToggleModal={onModalChanged} 
+                    cartSubtotal={cartSubtotal}
                     user={user}   
                     onLogout={signOut}
                 />
@@ -92,7 +99,11 @@ const NavSidebarShell = ({ children, categories }: NavSidebarShellProps) => {
 
             {/* Cart Drawer */}
             <div className={`${ cartdrawerOpen ? "block" : "hidden" }`} >
-                <div className="fixed top-16 right-0 z-20 h-[calc(100vh-4rem)] w-[50vw] bg-gray-100 dark:bg-zinc-950 dark:text-white md:w-[25vw]">
+                <div className="fixed top-16 right-0 z-2 h-[calc(100vh-4rem)] 
+                    bg-gray-100 dark:bg-zinc-950 dark:text-white 
+                    w-[100vw] 
+                    md:w-[25vw]">
+                    
                     <CartDrawer />
                 </div>
             </div>
@@ -101,11 +112,12 @@ const NavSidebarShell = ({ children, categories }: NavSidebarShellProps) => {
                             
                 
                 {/* Left Sidebar */}
-                <div className={`overflow-y-auto bg-amber-100 text-black dark:bg-zinc-900 dark:text-white ${ sidebarOpen ? "block" : "hidden" } `}>
+                <div className={`overflow-y-auto bg-amber-100 z-3 text-black dark:bg-zinc-900 dark:text-white ${ sidebarOpen ? "block" : "hidden" } `}>
                     <SideBar categories={categories} 
                             showUserMenu={!isBigScreen} 
                             onToggleModal={onModalChanged} 
                             onToggleCartdrawer={ () => setCartdrawerOpen(!cartdrawerOpen) }
+                            cartSubtotal={cartSubtotal}
                             user={user}
                             onLogout={signOut}
                     />
