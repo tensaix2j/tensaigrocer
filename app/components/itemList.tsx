@@ -24,17 +24,19 @@ const ItemList = ({ initialItems, category }: ItemListProps) => {
 	//---------------
 	async function loadMore() {
 		
+        
         if (loading || !hasMore) return;
         setLoading(true);
 
-        console.log("itemList.tsx", "loadMore", page.current, items.length );
-
+        console.time("loadMore")
         
+        //console.log("itemList.tsx 1.0", "loadMore", page.current, items.length );
+
         let skip = page.current * 20;
 		const res = await fetch(
 			`/api/groceries?category=${encodeURIComponent(category)}&skip=${skip}`
 		);
-
+        
 		const data = (await res.json()) as GroceryItem[];
 
         if ( data.length === 0) {
@@ -50,14 +52,17 @@ const ItemList = ({ initialItems, category }: ItemListProps) => {
 		page.current += 1;
 
 		setLoading(false);
+
+        console.timeEnd("loadMore")
+
 	}
 	
 
 	//---------------
 	useEffect(() => {
 
-        console.log("itemList.tsx", "useEffect");
-
+        console.log("itemList.tsx 2.0", "useEffect");
+        
 		const observer = new IntersectionObserver((entries) => {
 			if (entries[0].isIntersecting && !loading && hasMore ) {
                 
@@ -70,16 +75,14 @@ const ItemList = ({ initialItems, category }: ItemListProps) => {
             rootMargin: "300px",
             threshold: 0,
         });
-
+        
 		if (loaderRef.current) observer.observe(loaderRef.current);
 
 		return () => observer.disconnect();
 
 	}, [ loading, hasMore ]);
     
-    //console.log("itemList.tsx", "init", items.length );
-
-	
+    
 	return (
 		<>
 		{ items.map( ( item )=> (
@@ -102,6 +105,7 @@ const ItemList = ({ initialItems, category }: ItemListProps) => {
 
 		</>
 	)
+    
 }
 
 export default ItemList

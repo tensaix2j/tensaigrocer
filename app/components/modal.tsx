@@ -1,9 +1,8 @@
 
 import React from 'react'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import '@fortawesome/fontawesome-svg-core/styles.css'
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+
+import { FaChevronLeft, FaChevronRight, FaPlus, FaTimes } from "react-icons/fa";
+
 
 type ModalProps = {
     children: React.ReactNode;
@@ -26,14 +25,14 @@ const Modal = ( {children, onClosed }: ModalProps ) => {
                 dark:md:shadow-black/60"
             >
                 <button className="m-4 md:hidden text-lg hover:text-orange-700 dark:hover:text-amber-200" onClick={ onClosed } >
-                    <FontAwesomeIcon icon={faChevronLeft} />
+                    <FaChevronLeft size={20} />
                 </button>
 
                 { children }
 
                 {/* close button, mobile noneed. */}
                 <div className="hidden md:block absolute top-0 right-0 bg-black border border-white/70 dark:bg-white dark:border-zinc-700 translate-x-1/2 -translate-y-1/2 rounded-4xl aspect-square w-[40px] align-items-center justify-items-center text-white dark:text-black text-2xl pl-1 pt-1 cursor-pointer" onClick={ onClosed } >
-                    <FontAwesomeIcon className="" icon={faXmark} />
+                    <FaTimes size={20} />
                 </div>
             </div>
         </>

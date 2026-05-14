@@ -10,6 +10,7 @@ import { Varela_Round } from 'next/font/google'
 
 import { ThemeProvider } from 'next-themes'
 import { AuthProvider } from "../context/authContext";
+import { CartProvider } from "../context/cartContext";
 
 export const metadata: Metadata = {
 	title: "Tensai Grocer",
@@ -51,10 +52,12 @@ export default async function RootLayout({
                     themes={["light", "dark"]}
                 >
                     <AuthProvider>
-                        <NavSidebarShell categories={categories}   >
-                            {children}
-                            <ToastContainer />
-                        </NavSidebarShell>
+                        <CartProvider>
+                            <NavSidebarShell categories={categories}   >
+                                {children}
+                                <ToastContainer />
+                            </NavSidebarShell>
+                        </CartProvider>
                     </AuthProvider>
 
                 </ThemeProvider>

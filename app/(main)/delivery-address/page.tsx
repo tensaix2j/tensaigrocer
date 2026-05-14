@@ -2,11 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FaChevronLeft, FaChevronRight, FaPlus } from "react-icons/fa";
 
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+
 import Modal from "../../components/modal";
 import { toast } from "react-toastify";
 
@@ -134,14 +133,15 @@ export default function DeliveryAddress() {
                     title="Back to account"
                     className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-300 bg-white text-black transition hover:border-orange-600 hover:text-orange-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-white dark:hover:border-amber-200 dark:hover:text-amber-200"
                 >
-                    <FontAwesomeIcon icon={faChevronLeft} />
+                    <FaChevronLeft size={20} />
+
                 </Link>
                 <h1 className="text-2xl font-bold">Delivery Address</h1>
             </div>
 
             <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
                 <button className={buttonClassName} onClick={openAddModal}>
-                    <FontAwesomeIcon icon={faPlus} />
+                    <FaPlus size={20} />
                     Add New Address
                 </button>
 

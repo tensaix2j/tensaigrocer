@@ -5,31 +5,38 @@
 import React from 'react'
 import Link from "next/link";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBasketShopping } from "@fortawesome/free-solid-svg-icons";
-import '@fortawesome/fontawesome-svg-core/styles.css'
+
+import { FaChevronLeft, FaChevronRight, FaPlus, FaTimes, FaShoppingCart } from "react-icons/fa";
+
 
 import Logo from "./logo"
 import SearchBar from "./searchbar"
 import type { AppUser, ToggleModal } from "../types";
 import ThemeToggle from './themeToggle'
+import { useCart } from "../context/cartContext";
 
 type NavBarProps = {
     categories: string[];
     onToggleSidebar: () => void;
+    onToggleCartdrawer: () => void;
     onToggleModal: ToggleModal;
     user: AppUser | null;
     onLogout: () => void;
 };
 
-const NavBar = ( {categories, onToggleSidebar, onToggleModal , user , onLogout }: NavBarProps ) => {
+const NavBar = ( {categories, onToggleSidebar, onToggleCartdrawer, onToggleModal , user , onLogout }: NavBarProps ) => {
     const buttonClassName = "hover:text-green-900 dark:hover:text-amber-200 cursor-pointer";
+    const { state } = useCart();
+    const subtotal = state.items.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+    );
 
 	return (
 			
 		<div className="">
 			
-			<div className="w-full flex flex-row p-2 gap-2 items-center bg-amber-200 text-black dark:bg-zinc-900 dark:text-white">
+			<div className="flex min-h-16 w-full flex-row items-center gap-2 bg-amber-200 p-2 text-black dark:bg-zinc-900 dark:text-white">
 
 				<div className="flex flex-row md:basis-1/5 ">
 					<button className="md:hidden text-2xl px-2 pb-1.5 m-0" onClick={ onToggleSidebar } >☰</button>
@@ -45,7 +52,14 @@ const NavBar = ( {categories, onToggleSidebar, onToggleModal , user , onLogout }
 
 				<div className="hidden md:flex p-2 gap-4 items-center">
                     <div><ThemeToggle /></div>
-                    <div><button className={buttonClassName}><FontAwesomeIcon icon={faBasketShopping} /> Cart</button></div>
+                    <div>
+                        <button className={`${buttonClassName} flex items-center gap-1`} onClick={ onToggleCartdrawer }>
+                            <FaShoppingCart size={20} /> 
+                            {subtotal > 0 && (
+                                <span className="text-sm">${subtotal.toFixed(2)}</span>
+                            )}
+                        </button>
+                    </div>
 
                     { user ? ( 
                         <>

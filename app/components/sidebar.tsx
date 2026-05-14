@@ -1,10 +1,8 @@
 import React from 'react'
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { faBasketShopping } from "@fortawesome/free-solid-svg-icons";
 
-import '@fortawesome/fontawesome-svg-core/styles.css'
+import { FaChevronLeft, FaChevronRight, FaPlus, FaTimes, FaShoppingCart } from "react-icons/fa";
+
 
 import Link  from "next/link"
 import { decode } from "html-entities";
@@ -15,11 +13,12 @@ type SideBarProps = {
     categories: string[];
     showUserMenu: boolean;
     onToggleModal: ToggleModal;
+    onToggleCartdrawer: () => void;
     user: AppUser | null;
     onLogout: () => void;
 };
 
-const SideBar = ( { categories , showUserMenu , onToggleModal , user , onLogout }: SideBarProps ) => {
+const SideBar = ( { categories , showUserMenu , onToggleModal, onToggleCartdrawer , user , onLogout }: SideBarProps ) => {
     
     const buttonClassName = "hover:text-green-900 dark:hover:text-amber-200 cursor-pointer";
 
@@ -29,7 +28,13 @@ const SideBar = ( { categories , showUserMenu , onToggleModal , user , onLogout 
             { showUserMenu &&  
                 <div className="flex flex-col gap-1 ml-1">
                     <div><ThemeToggle /></div>
-                    <div><button className="hover:text-green-900 dark:hover:text-amber-200 cursor-pointer"><FontAwesomeIcon icon={faBasketShopping} /> Cart</button></div>
+                    <div>
+                        <button className="hover:text-green-900 dark:hover:text-amber-200 cursor-pointer"
+                                onClick={ onToggleCartdrawer }
+                            >
+                            <FaShoppingCart size={20} />
+                        </button>
+                    </div>
 
 
                     { user ? ( 
@@ -62,7 +67,7 @@ const SideBar = ( { categories , showUserMenu , onToggleModal , user , onLogout 
                         { decode( category ) }
                     </div>
                     <div className="text-gray-500 dark:text-gray-300">
-                            <FontAwesomeIcon icon={faChevronRight} />
+                        <FaChevronRight size={14} />
                     </div>
                     
 				</Link>
