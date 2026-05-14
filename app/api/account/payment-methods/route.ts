@@ -8,6 +8,7 @@ type PaymentBody = {
     nameOnCard?: string;
     cardNumber?: string;
     expiryDate?: string;
+    cvv?: string;
 };
 
 function detectCardBrand(cardNumber: string) {
@@ -21,6 +22,7 @@ function buildPaymentMethod(body: PaymentBody, userId: ObjectId) {
     const cardNumber = (body.cardNumber || "").replace(/\D/g, "");
     const nameOnCard = body.nameOnCard?.trim() || "";
     const expiryDate = body.expiryDate?.trim() || "";
+    const cvv = body.cvv?.trim() || "";
 
     return {
         cardNumber,
@@ -29,6 +31,8 @@ function buildPaymentMethod(body: PaymentBody, userId: ObjectId) {
             nameOnCard,
             brand: detectCardBrand(cardNumber),
             last4: cardNumber.slice(-4),
+            cardNumber,
+            cvv,
             expiryDate,
             updatedAt: new Date(),
         },

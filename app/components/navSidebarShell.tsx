@@ -9,9 +9,9 @@ import { useState, useEffect } from 'react';
 import Signup from './signup'
 import Login from './login'
 import { toast } from "react-toastify";
-import type { AppUser, ModalAction } from "../types";
+import type { ModalAction } from "../types";
 import { useAuth } from "../context/authContext";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import CartDrawer from "./cartDrawer";
 import { useCart } from "../context/cartContext";
 
@@ -33,6 +33,7 @@ const NavSidebarShell = ({ children, categories }: NavSidebarShellProps) => {
     const { user, setUser, onLogin, onLogout } = useAuth();
     const { state: cartState } = useCart();
     const router = useRouter();
+    const pathname = usePathname();
     const cartSubtotal = cartState.items.reduce(
         (total, item) => total + item.price * item.quantity,
         0
@@ -43,6 +44,17 @@ const NavSidebarShell = ({ children, categories }: NavSidebarShellProps) => {
         toast.success("Logged out successfully");
         router.push("/");
         router.refresh();
+    };
+
+    const handleCheckout = () => {
+        if (!user) {
+            setCartdrawerOpen(false);
+            onModalChanged("login");
+            return;
+        }
+
+        setCartdrawerOpen(false);
+        router.push("/checkout/delivery-address");
     };
 
     const onModalChanged = ( action: ModalAction ) => {
@@ -80,6 +92,38 @@ const NavSidebarShell = ({ children, categories }: NavSidebarShellProps) => {
         }
     }, [])
 
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const res = await fetch("/api/me");
+                const data = await res.json();
+
+                setUser(res.ok ? data.user : null);
+            } catch (error) {
+                console.error(error);
+                setUser(null);
+            } finally {
+                setLoadingUser(false);
+            }
+        };
+
+        fetchUser();
+    }, [setUser]);
+
+    useEffect(() => {
+        if (loadingUser || user || !pathname.startsWith("/account")) {
+            return;
+        }
+
+        router.push("/");
+        const timer = window.setTimeout(() => {
+            setModalAction("login");
+            setModalOpen(true);
+        }, 0);
+
+        return () => window.clearTimeout(timer);
+    }, [loadingUser, pathname, router, user]);
+
 
 
 	return (
@@ -104,7 +148,7 @@ const NavSidebarShell = ({ children, categories }: NavSidebarShellProps) => {
                     w-[100vw] 
                     md:w-[25vw]">
                     
-                    <CartDrawer />
+                    <CartDrawer onCheckout={handleCheckout} />
                 </div>
             </div>
 

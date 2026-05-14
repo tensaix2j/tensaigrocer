@@ -31,8 +31,26 @@ const Modal = ( {children, onClosed }: ModalProps ) => {
                 { children }
 
                 {/* close button, mobile noneed. */}
-                <div className="hidden md:block absolute top-0 right-0 bg-black border border-white/70 dark:bg-white dark:border-zinc-700 translate-x-1/2 -translate-y-1/2 rounded-4xl aspect-square w-[40px] align-items-center justify-items-center text-white dark:text-black text-2xl pl-1 pt-1 cursor-pointer" onClick={ onClosed } >
-                    <FaTimes size={20} />
+                <div className="
+                    hidden md:block 
+                    absolute 
+                    top-0 right-0 
+                    bg-black border 
+                    border-white/70 
+                    dark:bg-white dark:border-zinc-700 
+                    translate-x-1/2 
+                    -translate-y-1/2 
+                    rounded-4xl aspect-square w-[40px] 
+                    items-center justify-center text-white 
+                    dark:text-black text-2xl cursor-pointer
+
+                    " 
+                    onClick={ onClosed } >
+
+                    <FaTimes className="
+                        translate-x-1/2 
+                        translate-y-1/2    
+                    " size={20} />
                 </div>
             </div>
         </>

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { FaChevronLeft, FaChevronRight, FaPlus } from "react-icons/fa";
 
 
-import Modal from "../../components/modal";
+import Modal from "../../../components/modal";
 
 import Link from "next/link";
 import { toast } from "react-toastify";
@@ -23,6 +23,8 @@ type SavedPaymentMethod = {
     nameOnCard: string;
     brand: string;
     last4: string;
+    cardNumber: string;
+    cvv: string;
     expiryDate: string;
 };
 
@@ -75,9 +77,9 @@ export default function PaymentMethods() {
         setEditingPaymentId(savedPaymentMethod._id);
         setPayment({
             nameOnCard: savedPaymentMethod.nameOnCard,
-            cardNumber: "",
+            cardNumber: savedPaymentMethod.cardNumber,
             expiryDate: savedPaymentMethod.expiryDate,
-            cvv: "",
+            cvv: savedPaymentMethod.cvv,
         });
         setModalOpen(true);
     };
@@ -92,6 +94,7 @@ export default function PaymentMethods() {
                     _id: editingPaymentId || undefined,
                     nameOnCard: payment.nameOnCard,
                     cardNumber: payment.cardNumber,
+                    cvv: payment.cvv,
                     expiryDate: payment.expiryDate,
                 }),
             });
@@ -164,13 +167,13 @@ export default function PaymentMethods() {
                     <div className="flex flex-col gap-3 p-4 text-black dark:text-white">
                         <h2 className="text-xl font-bold">{editingPaymentId ? "Edit Payment Method" : "Add Payment Method"}</h2>
                         <input className={inputClassName} placeholder="Name on Card" value={payment.nameOnCard} onChange={(e) => updatePayment("nameOnCard", e.target.value)} />
-                        <input className={inputClassName} placeholder={editingPaymentId ? "Card Number (enter again to update)" : "Card Number"} value={payment.cardNumber} onChange={(e) => updatePayment("cardNumber", e.target.value)} />
+                        <input className={inputClassName} placeholder="Card Number" value={payment.cardNumber} onChange={(e) => updatePayment("cardNumber", e.target.value)} />
                         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                             <input className={inputClassName} placeholder="Expiry Date" value={payment.expiryDate} onChange={(e) => updatePayment("expiryDate", e.target.value)} />
                             <input className={inputClassName} placeholder="CVV" value={payment.cvv} onChange={(e) => updatePayment("cvv", e.target.value)} />
                         </div>
                         <p className="text-xs text-gray-600 dark:text-gray-400">
-                            Card number and CVV are not stored. Only safe card details are saved.
+                            Card details are securely stored for your convenience.
                         </p>
                         <button className="btn btn-primary mt-2 w-full" disabled={saving} onClick={savePayment}>
                             {saving ? "Saving..." : "Save"}

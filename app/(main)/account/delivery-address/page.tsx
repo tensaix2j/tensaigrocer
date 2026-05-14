@@ -6,7 +6,7 @@ import Link from "next/link";
 import { FaChevronLeft, FaChevronRight, FaPlus } from "react-icons/fa";
 
 
-import Modal from "../../components/modal";
+import Modal from "../../../components/modal";
 import { toast } from "react-toastify";
 
 

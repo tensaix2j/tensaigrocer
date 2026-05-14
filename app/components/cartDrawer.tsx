@@ -4,16 +4,16 @@ import React from 'react'
 import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
 import { useCart } from "../context/cartContext";
 
-const CartDrawer = () => {
+type CartDrawerProps = {
+    onCheckout: () => void;
+};
+
+const CartDrawer = ({ onCheckout }: CartDrawerProps) => {
     const { state, dispatch } = useCart();
     const subtotal = state.items.reduce(
         (total, item) => total + item.price * item.quantity,
         0
     );
-
-    const handleCheckout = ()=> {
-
-    }
 
     return (
     <div className="flex h-full flex-col p-3">
@@ -107,7 +107,7 @@ const CartDrawer = () => {
             <div>
                 <button
                     className="btn btn-primary"
-                    onClick={handleCheckout}
+                    onClick={onCheckout}
                     disabled={state.items.length === 0}
                 >
                     Check Out
