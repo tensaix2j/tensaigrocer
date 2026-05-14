@@ -22,7 +22,7 @@ type NavSidebarShellProps = {
 const NavSidebarShell = ({ children, categories }: NavSidebarShellProps) => {
 
 	const [sidebarOpen, setSidebarOpen] = useState(true)
-    const [cartdrawerOpen, setCartdrawerOpen] = useState(true)
+    const [cartdrawerOpen, setCartdrawerOpen] = useState(false)
     
     const [isBigScreen, setIsBigScreen ] = useState(false);
     const [modalOpen, setModalOpen ] = useState( false );
