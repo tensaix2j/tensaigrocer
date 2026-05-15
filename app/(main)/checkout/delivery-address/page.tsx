@@ -172,7 +172,7 @@ export default function CheckoutDeliveryAddress() {
                                             <h2 className="font-bold">{address.recipientName}</h2>
                                             <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">{address.contactNo}</p>
                                         </div>
-                                        {selected && <span className="badge badge-primary">Selected</span>}
+                                        {selected && <span className="badge badge-primary p-4">Selected</span>}
                                     </div>
                                     <p className="mt-3 text-sm">{formatAddress(address)}</p>
                                     {address.additionalDetails && (

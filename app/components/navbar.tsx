@@ -32,7 +32,7 @@ const NavBar = ( {categories, onToggleSidebar, onToggleCartdrawer, onToggleModal
 			
 			<div className="flex min-h-16 w-full flex-row items-center gap-2 bg-amber-200 p-2 text-black dark:bg-zinc-900 dark:text-white">
 
-				<div className="flex flex-row md:basis-1/5 ">
+				<div className="flex flex-row md:basis-1/6 ">
 				
                 	<button className="md:hidden text-2xl px-2 pb-1.5 m-0" onClick={ onToggleSidebar } >☰</button>
 					

@@ -58,9 +58,6 @@ const SideBar = ( { categories , showUserMenu , onToggleModal, onToggleCartdrawe
                     <div className="flex-1">
                         { decode( category ) }
                     </div>
-                    <div className="text-gray-500 dark:text-gray-300">
-                        <FaChevronRight size={14} />
-                    </div>
                     
 				</Link>
             ))}				
