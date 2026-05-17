@@ -25,7 +25,8 @@ export default function CheckoutPaymentMethod() {
         qrCode: string;
         orderNo: string;
     } | null>(null);
-    const timeoutCheckPaymentStatus = useRef( null );
+    const timeoutCheckPaymentStatus = useRef<ReturnType<typeof setTimeout> | null>(null);
+
     const isLeaving = useRef(false);
 
     const subtotal = state.items.reduce((total, item) => total + item.price * item.quantity, 0);
