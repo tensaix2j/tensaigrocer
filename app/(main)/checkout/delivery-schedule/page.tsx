@@ -2,7 +2,9 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FaCalendarAlt, FaChevronLeft, FaClock } from "react-icons/fa";
+import { toast } from "react-toastify";
 import CheckoutSteps from "../../../components/checkoutSteps";
 import { useCheckout } from "../../../context/checkoutContext";
 
@@ -21,7 +23,15 @@ const formatDay = (date: Date) =>
     }).format(date);
 
 export default function CheckoutDeliverySchedule() {
-    const { setSchedule } = useCheckout();
+    const router = useRouter();
+    const { address, setSchedule } = useCheckout();
+
+    useEffect(() => {
+        if (!address) {
+            toast.error("Please select a delivery address first");
+            router.push("/checkout/delivery-address");
+        }
+    }, [address, router]);
     const deliveryDays = useMemo(() => {
         const today = new Date();
 
@@ -121,7 +131,7 @@ export default function CheckoutDeliverySchedule() {
                 <div className="hidden text-sm text-gray-700 dark:text-gray-300 sm:block">
                     {selectedDayLabel}, {selectedTimeSlot}
                 </div>
-                <Link href="/checkout/payment-method" className="btn btn-primary">
+                <Link href="/checkout/review" className="btn btn-primary">
                     Next
                 </Link>
             </section>

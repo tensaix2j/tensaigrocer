@@ -33,6 +33,12 @@ type OrderBody = {
         detail?: string;
         expiry?: string;
     };
+    cryptoPayment?: {
+        orderId?: string;
+        address?: string;
+        amount?: number;
+        network?: string;
+    };
 };
 
 export async function GET() {
@@ -100,6 +106,7 @@ export async function POST(req: Request) {
             deliveryAddress: body.deliveryAddress || null,
             deliverySchedule: body.deliverySchedule || null,
             paymentMethod: body.paymentMethod || null,
+            cryptoPayment: body.cryptoPayment || null,
             createdAt: now,
             updatedAt: now,
         };

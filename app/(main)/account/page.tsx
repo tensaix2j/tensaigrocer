@@ -30,7 +30,6 @@ export default function Account() {
             <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
                 <Link href="/profile" className={cardClassName}>Personal Info</Link>
                 <Link href="/account/delivery-address" className={cardClassName}>Delivery Addresses</Link>
-                <Link href="/account/payment-methods" className={cardClassName}>Payment Methods</Link>
                 <Link href="/account/order-history" className={cardClassName}>Transactions</Link>
                 <button className={cardClassName} onClick={signOut}>Sign out</button>
                 <button className={`${cardClassName} hover:border-red-600 hover:text-red-600 dark:hover:border-red-400 dark:hover:text-red-400`} onClick={() => setShowDeleteModal(true)}>

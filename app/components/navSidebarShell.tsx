@@ -143,7 +143,7 @@ const NavSidebarShell = ({ children, categories }: NavSidebarShellProps) => {
 
             {/* Cart Drawer */}
             <div className={`${ cartdrawerOpen ? "block" : "hidden" }`} >
-                <div className="fixed top-16 right-0 z-2 h-[calc(100vh-4rem)] 
+                <div className="fixed top-16 right-0 z-20 h-[calc(100vh-4rem)] 
                     bg-gray-100 dark:bg-zinc-950 dark:text-white 
                     w-[100vw] 
                     md:w-[25vw]">

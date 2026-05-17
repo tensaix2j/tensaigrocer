@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { FaChevronLeft, FaMapMarkerAlt, FaRegClock, FaWallet } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { FaChevronLeft, FaMapMarkerAlt, FaRegClock } from "react-icons/fa";
 import { toast } from "react-toastify";
 import CheckoutSteps from "../../../components/checkoutSteps";
 import { useCart } from "../../../context/cartContext";
@@ -11,56 +11,38 @@ import { useCheckout } from "../../../context/checkoutContext";
 
 export default function CheckoutReview() {
     const router = useRouter();
-    const { state, dispatch } = useCart();
-    const { address, schedule, payment, clearCheckout } = useCheckout();
-    const [confirming, setConfirming] = useState(false);
+    const { state } = useCart();
+    const { address, schedule } = useCheckout();
+
+    useEffect(() => {
+        if (!address) {
+            toast.error("Please select a delivery address first");
+            router.push("/checkout/delivery-address");
+        }
+    }, [address, router]);
     const subtotal = state.items.reduce((total, item) => total + item.price * item.quantity, 0);
     const deliveryFee = state.items.length > 0 ? 3.99 : 0;
     const total = subtotal + deliveryFee;
 
-    const confirmOrder = async () => {
+    const proceedToPayment = () => {
         if (state.items.length === 0) {
             toast.error("Your cart is empty");
             return;
         }
-
-        try {
-            setConfirming(true);
-            const res = await fetch("/api/account/order-history", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    items: state.items,
-                    subtotal,
-                    deliveryFee,
-                    total,
-                    deliveryAddress: address,
-                    deliverySchedule: schedule,
-                    paymentMethod: payment,
-                }),
-            });
-            const data = await res.json();
-
-            if (!res.ok) {
-                toast.error(data.message || "Unable to confirm order");
-                return;
-            }
-
-            dispatch({ type: "CLEAR_CART" });
-            clearCheckout();
-            toast.success(data.message || "Order confirmed");
-            router.push("/account/order-history");
-        } catch (error) {
-            console.error(error);
-            toast.error("Network error");
-        } finally {
-            setConfirming(false);
+        if (!address) {
+            toast.error("Please select a delivery address");
+            return;
         }
+        if (!schedule) {
+            toast.error("Please select a delivery schedule");
+            return;
+        }
+        router.push("/checkout/payment-method");
     };
 
     return (
         <div className="mx-auto flex max-w-6xl flex-col gap-6 p-4 text-black dark:text-white">
-            <CheckoutSteps currentStep={4} />
+            <CheckoutSteps currentStep={3} />
 
             <section>
                 <h1 className="text-2xl font-bold">Review Order</h1>
@@ -132,23 +114,6 @@ export default function CheckoutReview() {
                                 </Link>
                             )}
                         </div>
-                        <div className="rounded-lg border border-gray-300 bg-white p-4 dark:border-zinc-700 dark:bg-zinc-900">
-                            <div className="mb-2 flex items-center gap-2 font-bold">
-                                <FaWallet className="text-orange-700 dark:text-amber-200" />
-                                Payment
-                            </div>
-                            {payment ? (
-                                <div className="text-sm text-gray-600 dark:text-gray-300">
-                                    <p className="font-semibold text-black dark:text-white">{payment.label}</p>
-                                    <p>{payment.detail}</p>
-                                    {payment.expiry && <p className="mt-1 text-xs">{payment.expiry}</p>}
-                                </div>
-                            ) : (
-                                <Link href="/checkout/payment-method" className="text-sm text-orange-700 dark:text-amber-200">
-                                    Select payment method
-                                </Link>
-                            )}
-                        </div>
                     </div>
                 </div>
 
@@ -173,12 +138,12 @@ export default function CheckoutReview() {
             </section>
 
             <section className="flex items-center justify-between gap-3">
-                <Link href="/checkout/payment-method" className="btn btn-ghost">
+                <Link href="/checkout/delivery-schedule" className="btn btn-ghost">
                     <FaChevronLeft size={12} />
                     Back
                 </Link>
-                <button className="btn btn-primary" disabled={state.items.length === 0 || confirming} onClick={confirmOrder}>
-                    {confirming ? "Confirming..." : "Confirm"}
+                <button className="btn btn-primary" disabled={state.items.length === 0} onClick={proceedToPayment}>
+                    Proceed to Payment
                 </button>
             </section>
         </div>

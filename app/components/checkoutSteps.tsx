@@ -13,8 +13,8 @@ type CheckoutStepsProps = {
 const steps: CheckoutStep[] = [
     { label: "Delivery Address", href: "/checkout/delivery-address" },
     { label: "Delivery Schedule", href: "/checkout/delivery-schedule" },
-    { label: "Payment Method", href: "/checkout/payment-method" },
     { label: "Review", href: "/checkout/review" },
+    { label: "Payment", href: "/checkout/payment-method" },
 ];
 
 const CheckoutSteps = ({ currentStep }: CheckoutStepsProps) => {

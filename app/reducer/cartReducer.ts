@@ -16,6 +16,10 @@ export type CartState = {
 
 export type CartAction =
   | {
+      type: 'SET_ITEMS'
+      payload: CartItem[]
+    }
+  | {
       type: 'ADD_ITEM'
       payload: Omit<CartItem, 'quantity'>
     }
@@ -52,6 +56,13 @@ export function cartReducer(
   action: CartAction
 ): CartState {
   switch (action.type) {
+    case 'SET_ITEMS': {
+      return {
+        ...state,
+        items: action.payload,
+      }
+    }
+
     case 'ADD_ITEM': {
       const existingItem = state.items.find(
         item => item.id === action.payload.id

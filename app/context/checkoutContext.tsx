@@ -23,6 +23,15 @@ export type CheckoutPayment = {
     expiry?: string;
 };
 
+export type CryptoPayment = {
+    orderId: string;
+    address: string;
+    amount: number;
+    network: string;
+    status: "pending" | "confirmed" | "failed";
+    qrCode?: string;
+};
+
 type CheckoutState = {
     address: CheckoutAddress | null;
     schedule: CheckoutSchedule | null;
